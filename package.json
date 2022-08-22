@@ -11,9 +11,5 @@
     "helmet": "^5.1.1",
     "morgan": "^1.10.0",
     "path": "^0.12.7"
-  },
-  "scripts": {
-    "start": "node ./src/index.js",
-    "build": "node ./src/index.js &"
   }
 }
