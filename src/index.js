@@ -87,7 +87,7 @@ app.get("/", async (req, res) => {
 });
 
 // starting the server
-app.listen(3001, () => {
+const server = app.listen(3001, () => {
   const port = server.address().port;
   console.log(`Express is working on port ${port}`);
 });
