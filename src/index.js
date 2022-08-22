@@ -13,6 +13,8 @@ const fsp = require("fs/promises");
 const app = express();
 
 app.use("/static", express.static("resources"));
+app.use("/static", express.static("resources/arrows"));
+app.use("/static", express.static("resources/communication"));
 
 // adding Helmet to enhance your Rest API's security
 app.use(helmet());
