@@ -87,6 +87,6 @@ app.get("/", async (req, res) => {
 });
 
 // starting the server
-app.listen(3001, () => {
+app.listen(process.env.PORT, () => {
   console.log("listening on port 3001");
 });
