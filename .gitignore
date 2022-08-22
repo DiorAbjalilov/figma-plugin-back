@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 node_modules
 yarn.lock
+=======
+/node_modules
+>>>>>>> de6f19bf6c8fd461b5a2ab3bbaeefe6187deae0b
