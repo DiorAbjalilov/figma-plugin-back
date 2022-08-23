@@ -85,9 +85,23 @@ app.get("/", async (req, res) => {
   let icons = await getFiles(search, filter, page, pageSize);
   res.send(icons);
 });
-app.get("/getFolders", async (req, res) => {
+app.get("/categories", async (req, res) => {
   let categories = await fsp.readdir(RESOURSES_PATH);
   res.send(categories);
+});
+app.get("/categoryFolder", async (req, res) => {
+  const { category } = req.query;
+  let categoriesFolder = await fsp.readdir(path.join(RESOURSES_PATH, category));
+  res.send(categoriesFolder);
+});
+app.get("/folderIcons", async (req, res) => {
+  const { folder } = req.query;
+  let categories = await fsp.readdir(RESOURSES_PATH);
+  let categoriesFolder = await fsp.readdir(path.join(RESOURSES_PATH, category));
+  let icons = await fsp.readdir(
+    path.join(RESOURSES_PATH, categories, categoriesFolder)
+  );
+  res.send(icons);
 });
 
 // starting the server
