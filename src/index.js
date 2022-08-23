@@ -12,7 +12,7 @@ const fsp = require("fs/promises");
 // defining the Express app
 const app = express();
 
-app.use('/static', express.static('resources'));
+app.use("/static", express.static("resources"));
 
 // adding Helmet to enhance your Rest API's security
 app.use(helmet());
@@ -84,6 +84,9 @@ app.get("/", async (req, res) => {
   let { search, filter, page, pageSize } = req.query;
   let icons = await getFiles(search, filter, page, pageSize);
   res.send(icons);
+});
+app.get("/getFolders", async (req, res) => {
+  res.send(RESOURSES_PATH);
 });
 
 // starting the server
