@@ -125,7 +125,7 @@ app.delete("/delete", async (req, res) => {
     const directoryPath = __basedir + "/resources/arrows/bulk/";
     fs.unlink(directoryPath + "arrow-back-circle.svg", (err) => {
       if (err) {
-        res.status(500).send({
+        res.send({
           message: "Could not delete the file. " + err,
         });
       }
