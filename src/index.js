@@ -90,18 +90,26 @@ app.get("/categories", async (req, res) => {
   res.send(categories);
 });
 app.get("/categoryFolder", async (req, res) => {
-  const { category } = req.query;
-  let categoriesFolder = await fsp.readdir(path.join(RESOURSES_PATH, "arrows"));
-  res.send(categoriesFolder);
+  try {
+    const { category } = req.query;
+    let categoriesFolder = await fsp.readdir(
+      path.join(RESOURSES_PATH, "arrows")
+    );
+    res.send(categoriesFolder);
+  } catch (error) {
+    res.send({ error });
+  }
 });
 app.get("/folderIcons", async (req, res) => {
-  const { folder } = req.query;
-  let categories = await fsp.readdir(RESOURSES_PATH);
-  let categoriesFolder = await fsp.readdir(path.join(RESOURSES_PATH, category));
-  let icons = await fsp.readdir(
-    path.join(RESOURSES_PATH, categories, categoriesFolder)
-  );
-  res.send(icons);
+  try {
+    const { folder } = req.query;
+    let categories = await fsp.readdir(RESOURSES_PATH);
+    let categoriesFolder = await fsp.readdir(path.join(RESOURSES_PATH, folder));
+    let icons = await fsp.readdir(path.join(RESOURSES_PATH, "arrows", "bulk"));
+    res.send(icons);
+  } catch (error) {
+    res.send({ error });
+  }
 });
 
 // starting the server
