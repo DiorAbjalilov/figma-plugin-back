@@ -85,26 +85,28 @@ app.get("/", async (req, res) => {
   let icons = await getFiles(search, filter, page, pageSize);
   res.send(icons);
 });
-app.get("/categories", async (req, res) => {
-  let categories = await fsp.readdir(RESOURSES_PATH);
-  res.send(categories);
-});
-app.get("/categoryFolder", async (req, res) => {
+app.get("/folders", async (req, res) => {
   try {
-    const { category } = req.query;
-    let categoriesFolder = await fsp.readdir(
-      path.join(RESOURSES_PATH, "arrows")
-    );
+    let categories = await fsp.readdir(RESOURSES_PATH);
+    res.send(categories);
+  } catch (error) {
+    res.send({ error });
+  }
+});
+app.get("/category", async (req, res) => {
+  try {
+    const { folder } = req.query;
+    let categoriesFolder = await fsp.readdir(path.join(RESOURSES_PATH, folder));
     res.send(categoriesFolder);
   } catch (error) {
     res.send({ error });
   }
 });
-app.get("/folderIcons", async (req, res) => {
+app.get("/icons", async (req, res) => {
   try {
-    const { folder } = req.query;
-    let categories = await fsp.readdir(RESOURSES_PATH);
-    let categoriesFolder = await fsp.readdir(path.join(RESOURSES_PATH, folder));
+    const { category } = req.query;
+    // let categories = await fsp.readdir(RESOURSES_PATH);
+    // let categoriesFolder = await fsp.readdir(path.join(RESOURSES_PATH, folder));
     let icons = await fsp.readdir(path.join(RESOURSES_PATH, "arrows", "bulk"));
     res.send(icons);
   } catch (error) {
