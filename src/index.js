@@ -72,18 +72,19 @@ const getFiles = async (search = "", filter = "", page = 0, pageSize = 100) => {
   } catch (error) {
     console.log("Error in reading categories");
   }
+  let allCount = allIcons.length;
   allIcons = allIcons.slice(
     convertedPage * convertedPageSize,
     (convertedPage + 1) * convertedPageSize
   );
-  return allIcons;
+  return { allIcons, allCount };
 };
 
 // defining an endpoint to return all ads
 app.get("/", async (req, res) => {
   let { search, filter, page, pageSize } = req.query;
   let icons = await getFiles(search, filter, page, pageSize);
-  res.send(icons);
+  res.send({ icons: icons.allIcons, count: icons.allCount });
 });
 app.get("/folders", async (req, res) => {
   try {
@@ -116,6 +117,18 @@ app.get("/icons", async (req, res) => {
     res.send(allIcons);
   } catch (error) {
     res.send({ error });
+  }
+});
+
+app.delete("/delete", async (req, res) => {
+  try {
+    fs.unlink("/resources/arrows/bulk/arrow-back-circle.svg", function (err) {
+      if (err) throw err;
+      // if no error, file has been deleted successfully
+      console.log("File deleted!");
+    });
+  } catch (error) {
+    console.log(error);
   }
 });
 
