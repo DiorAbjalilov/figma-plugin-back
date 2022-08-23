@@ -83,7 +83,7 @@ const getFiles = async (search = "", filter = "", page = 0, pageSize = 100) => {
 app.delete("/delete", async (req, res) => {
   try {
     const directoryPath = __basedir + "/resources/arrows/bulk";
-    fsp.unlink("./arrow-back-circle.svg", (err) => {
+    await fs.unlinkSync("file.txt", (err) => {
       if (err) {
         res.send({
           message: "Could not delete the file. " + err,
