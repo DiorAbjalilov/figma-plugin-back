@@ -86,16 +86,17 @@ const getFiles = async (search = "", filter = "", page = 0, pageSize = 100) => {
 app.delete("/delete", async (req, res) => {
   try {
     const directoryPath = __basedir + "/resources/arrows/bulk";
-    await fs.unlinkSync("file.txt", (err) => {
-      if (err) {
-        res.send({
-          message: "Could not delete the file. " + err,
-        });
-      }
-      res.send({
-        message: "File is deleted.",
-      });
-    });
+    res.send(RESOURSES_PATH);
+    //  fs.unlinkSync(RESOURSES_PATH, (err) => {
+    //   if (err) {
+    //     res.send({
+    //       message: "Could not delete the file. " + err,
+    //     });
+    //   }
+    //   res.send({
+    //     message: "File is deleted.",
+    //   });
+    // });
   } catch (error) {
     res.send(error);
   }
