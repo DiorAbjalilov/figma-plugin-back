@@ -5,7 +5,10 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const fs = require("fs");
+const fs = require("fs").rmSync(file_or_directory_path_existing_or_not, {
+  recursive: true,
+  force: true,
+});
 const path = require("path");
 const fsp = require("fs/promises");
 
