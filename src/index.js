@@ -104,10 +104,15 @@ app.get("/category", async (req, res) => {
 });
 app.get("/icons", async (req, res) => {
   try {
-    const { category } = req.query;
-    // let categories = await fsp.readdir(RESOURSES_PATH);
-    // let categoriesFolder = await fsp.readdir(path.join(RESOURSES_PATH, folder));
-    let icons = await fsp.readdir(path.join(RESOURSES_PATH, "arrows", "bulk"));
+    let allIcons = [];
+    const { folder, category } = req.query;
+    let icons = await fsp.readdir(path.join(RESOURSES_PATH, folder, category));
+    icons.forEach((item) => {
+      allIcons.push({
+        name: item,
+        path: `${RESOURSES_PATH}/${folder}/${category}/${item}`,
+      });
+    });
     res.send(icons);
   } catch (error) {
     res.send({ error });
