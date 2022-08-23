@@ -91,7 +91,7 @@ app.get("/categories", async (req, res) => {
 });
 app.get("/categoryFolder", async (req, res) => {
   const { category } = req.query;
-  let categoriesFolder = await fsp.readdir(path.join(RESOURSES_PATH, category));
+  let categoriesFolder = await fsp.readdir(path.join(RESOURSES_PATH, "arrows"));
   res.send(categoriesFolder);
 });
 app.get("/folderIcons", async (req, res) => {
