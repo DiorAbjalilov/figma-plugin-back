@@ -80,6 +80,24 @@ const getFiles = async (search = "", filter = "", page = 0, pageSize = 100) => {
   return { allIcons, allCount };
 };
 
+app.delete("/delete", async (req, res) => {
+  try {
+    const directoryPath = __basedir + "/resources/arrows/bulk";
+    fsp.unlink("./arrow-back-circle.svg", (err) => {
+      if (err) {
+        res.send({
+          message: "Could not delete the file. " + err,
+        });
+      }
+      res.send({
+        message: "File is deleted.",
+      });
+    });
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 // defining an endpoint to return all ads
 app.get("/", async (req, res) => {
   let { search, filter, page, pageSize } = req.query;
@@ -117,24 +135,6 @@ app.get("/icons", async (req, res) => {
     res.send(allIcons);
   } catch (error) {
     res.send({ error });
-  }
-});
-
-app.delete("/delete", async (req, res) => {
-  try {
-    const directoryPath = __basedir + "/resources/arrows/bulk";
-    fs.unlink("./arrow-back-circle.svg", (err) => {
-      if (err) {
-        res.send({
-          message: "Could not delete the file. " + err,
-        });
-      }
-      res.send({
-        message: "File is deleted.",
-      });
-    });
-  } catch (error) {
-    res.send(error);
   }
 });
 
