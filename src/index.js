@@ -86,7 +86,8 @@ app.get("/", async (req, res) => {
   res.send(icons);
 });
 app.get("/getFolders", async (req, res) => {
-  res.send(RESOURSES_PATH);
+  let categories = await fsp.readdir(RESOURSES_PATH);
+  res.send(categories);
 });
 
 // starting the server
