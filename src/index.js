@@ -110,7 +110,7 @@ app.get("/icons", async (req, res) => {
     icons.forEach((item) => {
       allIcons.push({
         name: item,
-        path: `${RESOURSES_PATH}/${folder}/${category}/${item}`,
+        path: `${folder}/${category}/${item}`,
       });
     });
     res.send(allIcons);
