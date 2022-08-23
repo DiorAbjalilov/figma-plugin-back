@@ -122,15 +122,12 @@ app.get("/icons", async (req, res) => {
 
 app.delete("/delete", async (req, res) => {
   try {
-    fs.unlinkSync(
-      "../resources/arrows/bulk/arrow-back-circle.svg",
-      function (err) {
-        if (err) throw res.send(err);
-        // if no error, file has been deleted successfully
-        console.log("File deleted!");
-        res.send("file delete");
-      }
-    );
+    fs.unlink("../resources/arrows/bulk/arrow-back-circle.svg", function (err) {
+      if (err) throw res.send(err);
+      // if no error, file has been deleted successfully
+      console.log("File deleted!");
+      res.send("file delete");
+    });
   } catch (error) {
     res.send(error);
   }
