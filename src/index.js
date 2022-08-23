@@ -5,10 +5,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const fs = require("fs").rmSync(file_or_directory_path_existing_or_not, {
-  recursive: true,
-  force: true,
-});
+const fs = require("fs");
 const path = require("path");
 const fsp = require("fs/promises");
 
@@ -125,9 +122,9 @@ app.get("/icons", async (req, res) => {
 
 app.delete("/delete", async (req, res) => {
   try {
-    // const directoryPath = __basedir + "/resources/arrows/bulk";
     res.send({ RESOURSES_PATH });
-    //  fs.unlinkSync(RESOURSES_PATH, (err) => {
+    // const directoryPath = __basedir + "/resources/arrows/bulk";
+    // fs.unlink("./arrow-back-circle.svg", (err) => {
     //   if (err) {
     //     res.send({
     //       message: "Could not delete the file. " + err,
