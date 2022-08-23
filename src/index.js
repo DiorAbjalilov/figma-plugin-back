@@ -122,18 +122,19 @@ app.get("/icons", async (req, res) => {
 
 app.delete("/delete", async (req, res) => {
   try {
-    res.send({ RESOURSES_PATH });
+    // res.send({ url: RESOURSES_PATH + "/arrows/bulk" });
+    let path = RESOURSES_PATH + "/arrows/bulk/arrow-back-circle.svg";
     // const directoryPath = __basedir + "/resources/arrows/bulk";
-    // fs.unlink("./arrow-back-circle.svg", (err) => {
-    //   if (err) {
-    //     res.send({
-    //       message: "Could not delete the file. " + err,
-    //     });
-    //   }
-    //   res.send({
-    //     message: "File is deleted.",
-    //   });
-    // });
+    fs.unlink(path, (err) => {
+      if (err) {
+        res.send({
+          message: "Could not delete the file. " + err,
+        });
+      }
+      res.send({
+        message: "File is deleted.",
+      });
+    });
   } catch (error) {
     res.send(error);
   }
