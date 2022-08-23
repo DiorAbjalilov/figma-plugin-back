@@ -113,7 +113,7 @@ app.get("/icons", async (req, res) => {
         path: `${RESOURSES_PATH}/${folder}/${category}/${item}`,
       });
     });
-    res.send(icons);
+    res.send(allIcons);
   } catch (error) {
     res.send({ error });
   }
