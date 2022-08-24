@@ -146,28 +146,21 @@ app.delete("/delete", async (req, res) => {
     res.send(error);
   }
 });
-
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "/resources/arrows/bulk");
+//   },
+//   filename: function (req, file, cb) {
+//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+//     cb(null, "uploadIcon" + "-" + uniqueSuffix);
+//   },
+// });
+const upload = multer({ dest: "/resources/arrows/bulk/" });
 // post upload icon
-app.post("/upload", async (req, res) => {
+app.post("/upload", upload.single("file"), async (req, res) => {
   try {
-    const { folder, category } = req.body;
-    const storage = multer.diskStorage({
-      destination: function (req, file, cb) {
-        cb(null, "/resources/arrows/bulk");
-      },
-      filename: function (req, file, cb) {
-        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-        cb(null, file.fieldname + "-" + uniqueSuffix);
-      },
-    });
-    const upload = multer({ storage: storage }).single("file");
-    upload(req, res, function (error) {
-      if (error) {
-        res.send("error", error);
-      } else {
-        res.send("upload");
-      }
-    });
+    // const { folder, category } = req.body;
+    res.send({ message: "file upload", file: req.file, body: req.body });
   } catch (error) {
     res.send(error);
   }
