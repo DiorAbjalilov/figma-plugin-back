@@ -82,26 +82,6 @@ const getFiles = async (search = "", filter = "", page = 0, pageSize = 100) => {
   return { allIcons, allCount };
 };
 
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "/resources/arrows/bulk");
-//   },
-//   filename: function (req, file, cb) {
-//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-//     cb(null, "uploadIcon" + "-" + uniqueSuffix);
-//   },
-// });
-const upload = multer({ dest: "static/resources/arrows/bulk/" });
-// post upload icon
-app.post("/upload", upload.single("file"), async (req, res) => {
-  try {
-    // const { folder, category } = req.body;
-    res.send({ message: "file upload", file: req.file, body: req.body });
-  } catch (error) {
-    res.send(error);
-  }
-});
-
 // defining an endpoint to return all ads
 app.get("/", async (req, res) => {
   let { search, filter, page, pageSize } = req.query;
@@ -167,7 +147,28 @@ app.delete("/delete", async (req, res) => {
   }
 });
 
+// post upload icon
+// const upload = multer({ dest: "resources/arrows/bulk" });
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    console.log(req.query);
+    cb(null, `resources/${req.query.path}`);
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname + "." + "svg");
+  },
+});
+
+const upload = multer({ storage: storage });
+app.post("/upload", upload.single("file"), async (req, res) => {
+  try {
+    res.send({ success: true, message: "file upload" });
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 // starting the server
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 3001, () => {
   console.log("listening on port 3001");
 });
