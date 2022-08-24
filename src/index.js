@@ -91,7 +91,7 @@ const getFiles = async (search = "", filter = "", page = 0, pageSize = 100) => {
 //     cb(null, "uploadIcon" + "-" + uniqueSuffix);
 //   },
 // });
-const upload = multer({ dest: "/resources/arrows/bulk/" });
+const upload = multer({ dest: "static/resources/arrows/bulk/" });
 // post upload icon
 app.post("/upload", upload.single("file"), async (req, res) => {
   try {
