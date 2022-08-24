@@ -151,23 +151,21 @@ app.delete("/delete", async (req, res) => {
 app.post("/upload", async (req, res) => {
   try {
     const { folder, category } = req.body;
-    let storage = multer.diskStorage({
-      destination: function (req, file, callback) {
-        callback(null, "app/resources/arrows/bulk");
+    const storage = multer.diskStorage({
+      destination: function (req, file, cb) {
+        cb(null, "/resources/arrows/bulk");
       },
-      filename: function (req, file, callback) {
-        let temp_arr = file.originalname.split(".");
-        let temp_name = temp_arr[0];
-        let temp_exstain = temp_arr[1];
-        callback(null, temp_name + "." + temp_exstain);
+      filename: function (req, file, cb) {
+        const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+        cb(null, file.fieldname + "-" + uniqueSuffix);
       },
     });
-    let upload = multer({ storage: storage }).single("sample_image");
+    const upload = multer({ storage: storage }).single("file");
     upload(req, res, function (error) {
       if (error) {
-        return res.send("Error file uploading");
+        res.send("error", error);
       } else {
-        return res.send("File uploading");
+        res.send("upload");
       }
     });
   } catch (error) {
