@@ -155,12 +155,12 @@ app.delete("/delete", async (req, res) => {
 //     cb(null, "uploadIcon" + "-" + uniqueSuffix);
 //   },
 // });
-const upload = multer({ dest: "/resources/arrows/bulk/" });
+// const upload = multer({ dest: "/resources/arrows/bulk/" });
 // post upload icon
 app.post("/upload", async (req, res) => {
   try {
     // const { folder, category } = req.body;
-    res.send({ message: "file upload", file: req.file, body: req.body });
+    res.send({ message: "file upload" });
   } catch (error) {
     res.send(error);
   }
