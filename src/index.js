@@ -82,6 +82,26 @@ const getFiles = async (search = "", filter = "", page = 0, pageSize = 100) => {
   return { allIcons, allCount };
 };
 
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "/resources/arrows/bulk");
+//   },
+//   filename: function (req, file, cb) {
+//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+//     cb(null, "uploadIcon" + "-" + uniqueSuffix);
+//   },
+// });
+// const upload = multer({ dest: "/resources/arrows/bulk/" });
+// post upload icon
+app.post("/upload", async (req, res) => {
+  try {
+    // const { folder, category } = req.body;
+    res.send({ message: "file upload" });
+  } catch (error) {
+    res.send(error);
+  }
+});
+
 // defining an endpoint to return all ads
 app.get("/", async (req, res) => {
   let { search, filter, page, pageSize } = req.query;
@@ -142,25 +162,6 @@ app.delete("/delete", async (req, res) => {
         message: "File is deleted.",
       });
     });
-  } catch (error) {
-    res.send(error);
-  }
-});
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, "/resources/arrows/bulk");
-//   },
-//   filename: function (req, file, cb) {
-//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-//     cb(null, "uploadIcon" + "-" + uniqueSuffix);
-//   },
-// });
-// const upload = multer({ dest: "/resources/arrows/bulk/" });
-// post upload icon
-app.post("/upload", async (req, res) => {
-  try {
-    // const { folder, category } = req.body;
-    res.send({ message: "file upload" });
   } catch (error) {
     res.send(error);
   }
