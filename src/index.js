@@ -8,6 +8,8 @@ const morgan = require("morgan");
 const fs = require("fs");
 const path = require("path");
 const fsp = require("fs/promises");
+const res = require("express/lib/response");
+const multer = require("multer");
 
 // defining the Express app
 const app = express();
@@ -86,6 +88,8 @@ app.get("/", async (req, res) => {
   let icons = await getFiles(search, filter, page, pageSize);
   res.send({ icons: icons.allIcons, count: icons.allCount });
 });
+
+// get folders
 app.get("/folders", async (req, res) => {
   try {
     let categories = await fsp.readdir(RESOURSES_PATH);
@@ -94,6 +98,8 @@ app.get("/folders", async (req, res) => {
     res.send({ error });
   }
 });
+
+// get categores
 app.get("/category", async (req, res) => {
   try {
     const { folder } = req.query;
@@ -103,6 +109,8 @@ app.get("/category", async (req, res) => {
     res.send({ error });
   }
 });
+
+// get icons
 app.get("/icons", async (req, res) => {
   try {
     let allIcons = [];
@@ -119,7 +127,7 @@ app.get("/icons", async (req, res) => {
     res.send({ error });
   }
 });
-
+// delete icon
 app.delete("/delete", async (req, res) => {
   let { path } = req.query;
   try {
@@ -134,6 +142,36 @@ app.delete("/delete", async (req, res) => {
         message: "File is deleted.",
       });
     });
+  } catch (error) {
+    res.send(error);
+  }
+});
+
+// post upload icon
+app.post("/upload", async (req, res) => {
+  try {
+    const { folder, category } = req.body;
+    let storage = multer.diskStorage({
+      destination: function (req, file, callback) {
+        callback(null, "../resources/arrows/bulk");
+      },
+      filename: function (req, file, callback) {
+        let temp_arr = file.originalname.split(".");
+        let temp_name = temp_arr[0];
+        let temp_exstain = temp_arr[1];
+        callback(null, temp_name + "." + temp_exstain);
+      },
+    });
+    let upload = multer({ storage: storage }).single("sample_image");
+    upload(req, res, function (error) {
+      if (error) {
+        return res.send("Error file uploading");
+      } else {
+        return res.send("File uploading");
+      }
+    });
+
+    res.send("upload");
   } catch (error) {
     res.send(error);
   }
