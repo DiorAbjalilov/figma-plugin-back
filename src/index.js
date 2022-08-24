@@ -91,12 +91,12 @@ const getFiles = async (search = "", filter = "", page = 0, pageSize = 100) => {
 //     cb(null, "uploadIcon" + "-" + uniqueSuffix);
 //   },
 // });
-// const upload = multer({ dest: "/resources/arrows/bulk/" });
+const upload = multer({ dest: "/resources/arrows/bulk/" });
 // post upload icon
-app.post("/upload", async (req, res) => {
+app.post("/upload", upload.single("file"), async (req, res) => {
   try {
     // const { folder, category } = req.body;
-    res.send({ message: "file upload" });
+    res.send({ message: "file upload", file: req.file, body: req.body });
   } catch (error) {
     res.send(error);
   }
