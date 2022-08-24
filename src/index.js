@@ -153,7 +153,7 @@ app.post("/upload", async (req, res) => {
     const { folder, category } = req.body;
     let storage = multer.diskStorage({
       destination: function (req, file, callback) {
-        callback(null, "../resources/arrows/bulk");
+        callback(null, "app/resources/arrows/bulk");
       },
       filename: function (req, file, callback) {
         let temp_arr = file.originalname.split(".");
@@ -170,8 +170,6 @@ app.post("/upload", async (req, res) => {
         return res.send("File uploading");
       }
     });
-
-    res.send("upload");
   } catch (error) {
     res.send(error);
   }
