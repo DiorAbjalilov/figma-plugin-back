@@ -155,7 +155,7 @@ const storage = multer.diskStorage({
     cb(null, `resources/${req.query.path}`);
   },
   filename: function (req, file, cb) {
-    cb(null, file.originalname + "." + "svg");
+    cb(null, file.originalname);
   },
 });
 
