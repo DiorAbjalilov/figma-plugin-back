@@ -30,7 +30,7 @@ app.use(morgan("combined"));
 
 const RESOURSES_PATH = path.join(process.cwd(), "resources");
 
-const getFiles = async (search = "", filter = "", page = 0, pageSize = 100) => {
+const getFiles = async (search = "", filter = "", page = 0, pageSize = 50) => {
   let convertedPage = parseInt(page),
     convertedPageSize = parseInt(pageSize);
   let allIcons = [];
